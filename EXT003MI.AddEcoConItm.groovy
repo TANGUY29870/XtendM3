@@ -199,9 +199,10 @@ public class AddEcoConItm extends ExtendM3Transaction {
         }
       }
     }
-    
+
+    int pageSize = mi.getMaxRecords() <= 0 || mi.getMaxRecords() >= 10000 ? 10000: mi.getMaxRecords() 
     // All the data matching the input key is retrieved
-    query.readAll(container, nbKeys, releasedItemProcessor)
+    query.readAll(container, nbKeys, pageSize, releasedItemProcessor)
     
     return overlap
   }
