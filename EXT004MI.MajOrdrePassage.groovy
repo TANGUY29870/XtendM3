@@ -5,6 +5,7 @@
  * Description: Met à jour l'ordre de passage des livraisons
  * Date                         Changed By                         Description
  * 20240410                     ddecosterd@hetic3.fr     	création
+ * 20240618						ddecosterd@hetic3.fr		updated for review
  */
 public class MajOrdrePassage extends ExtendM3Transaction {
 	private final MIAPI mi
@@ -47,6 +48,7 @@ public class MajOrdrePassage extends ExtendM3Transaction {
 						if(CHNO== 999) {
 							CHNO = 0
 						}
+						CHNO += 1
 						updatedRecord.set("OQLMDT", (Integer) this.utility.call("DateUtil", "currentDateY8AsInt"))
 						updatedRecord.set("OQCHID", this.program.getUser())
 						updatedRecord.setInt("OQCHNO", CHNO)
@@ -59,11 +61,11 @@ public class MajOrdrePassage extends ExtendM3Transaction {
 	}
 	
 	/**
-	 * Check input params
-	 * @param cono
-	 * @param dlix
-	 * @param inou
-	 * @return
+	 * Check that transaction params are corrects for mandatory fields
+	 * @param cono CONO parameter
+	 * @param dlix DLIX parameter
+	 * @param inou INOU parameter
+	 * @return true if all mandatory fields are corrects
 	 */
 	private boolean checkInputs(Integer cono, Long dlix, Integer inou) {
 		if(cono == null) {
